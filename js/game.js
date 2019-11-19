@@ -112,7 +112,7 @@ class playGame extends Phaser.Scene{
       this.gameOverText.setOrigin(.5);
       this.gameOverText.setDepth(1)
       this.gameOverText.visible = false;
-      //make the logo interactive and redirect to the github repository DISABLED!
+      
        logo.setInteractive();
        logo.on("pointerdown", function(){
            window.location.href = "https://github.com/S0uthernR/4096"
@@ -175,7 +175,7 @@ class playGame extends Phaser.Scene{
         if (emptyTiles.length <= 1) {
           this.gameOver();
         }
-        //find a random tile from the emptyTiles array and change the opacity of the element from 0 to 1 to make it 'appear' on the board.
+        
         else {
             var chosenTile = Phaser.Utils.Array.RemoveRandomElement(emptyTiles);
             this.boardArray[chosenTile.row][chosenTile.col].tileValue = 1;
@@ -194,7 +194,7 @@ class playGame extends Phaser.Scene{
         }
 
     }
-    //find a tile position and return it as a Phaser 'point' object.
+  
     getTilePosition(row, col){
         var posX = gameOptions.tileSpacing * (col + 1) + gameOptions.tileSize * (col + 0.5);
         var posY = gameOptions.tileSpacing * (row + 1) + gameOptions.tileSize * (row + 0.5);
@@ -205,7 +205,7 @@ class playGame extends Phaser.Scene{
         posY += offsetY;
         return new Phaser.Geom.Point(posX, posY);
     }
-    //callback function to handle keyboard input.
+    
     handleKey(e){
         if(this.canMove){
             switch(e.code){
@@ -228,7 +228,7 @@ class playGame extends Phaser.Scene{
             }
         }
     }
-    //callback function to handle swipe gestures.
+    
     handleSwipe(e){
         if(this.canMove){
             var swipeTime = e.upTime - e.downTime;
@@ -253,7 +253,7 @@ class playGame extends Phaser.Scene{
             }
         }
     }
-    //move the element according to direction selected.
+    
     makeMove(d){
         this.movingTiles = 0;
         var dRow = (d == LEFT || d == RIGHT) ? 0 : d == UP ? -1 : 1;
@@ -282,10 +282,10 @@ class playGame extends Phaser.Scene{
                       this.boardArray[curRow][curCol].tileValue = 0;
                       if(willUpdate) {
                         this.boardArray[newRow][newCol].tileValue ++;
-                        //add the score of the tiles to the current score box
+                        
                         this.score += Math.pow(2, this.boardArray[newRow][newCol].tileValue);
                         this.boardArray[newRow][newCol].upgraded = true;
-                        //this.boardArray[curRow] [curCol].tileSprite.setFrame(tileValue);
+                       
                       }
                       else {
                         this.boardArray[newRow][newCol].tileValue = tileValue;
@@ -301,7 +301,7 @@ class playGame extends Phaser.Scene{
           this.moveSound.play();
         }
     }
-    //the moveTile method will handle all tile movement, position, and depth.
+    
     moveTile(tile, point, upgrade){
         this.movingTiles ++;
         tile.depth = this.movingTiles;
@@ -345,14 +345,14 @@ class playGame extends Phaser.Scene{
         this.refreshBoard();
       }
     }
-    //check to see if the new position is a 'legal' position for a tile.
+    
     isLegalPosition(row, col, value) {
         var rowInside = row >= 0 && row < gameOptions.boardSize.rows;
         var colInside = col >= 0 && col < gameOptions.boardSize.cols;
         if(!rowInside || !colInside){
             return false;
         }
-        //limit tile value to 4096
+      
         if(this.boardArray[row][col].tileValue == 12) {
           return false
         }
@@ -361,7 +361,7 @@ class playGame extends Phaser.Scene{
         var alreadyUpgraded = this.boardArray[row][col].upgraded;
         return emptySpot || (sameValue && !alreadyUpgraded);
     }
-    //refresh the game board. Reset tile positions and reveal tiles based on board status
+   
     refreshBoard(){
       this.scoreText.text = this.score.toString();
       if(this.score > this.bestScore){
