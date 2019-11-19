@@ -116,7 +116,7 @@ class playGame extends Phaser.Scene{
        logo.setInteractive();
        logo.on("pointerdown", function(){
            window.location.href = "https://github.com/S0uthernR/4096"
-       })r;
+       });
       
       var fullScreen = this.getTilePosition(gameOptions.boardSize.rows + 1, gameOptions.boardSize.cols - 1);
       var fullScreenButton = this.add.sprite(fullScreen.x , fullScreen.y - 120, "fullscreen");
